@@ -18,7 +18,7 @@ for tr in soup.findAll('tr'):
     vdict = {}
     values = [td.text for td in tr.findAll('td')]
     if len(values) != 7:
-        print("row malformed : " + str(values))
+        print("[MALFORMED] : " + str(values) + " malformed row")
         continue
     vdict["time"] = datetime.strptime(values[0], '%d/%m/%Y %H:%M')
     vdict["wave_height"] = float(values[1])

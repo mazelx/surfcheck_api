@@ -39,5 +39,5 @@ for tr in soup.findAll('tr'):
         pass
 
 print("------------------")
-print(str(datetime.today()) + "Finished, " + str(len(extracts)) + " documents inserted")
+print(str(datetime.today()) + " Finished, " + str(len(extracts)) + " documents inserted")
 

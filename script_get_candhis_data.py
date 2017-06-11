@@ -29,6 +29,10 @@ for tr in soup.findAll('tr'):
     vdict["water_temperature"] = float(values[6])
     try:
         result = wave_data.insert(vdict)
+        extracts.append(result)
         print("[INSERT] " + str(vdict["datetime"]) + " ok")
     except DuplicateKeyError:
-        print("[DUPLICATE] " + str(vdict["datetime"]) + " already exist")
+        # print("[DUPLICATE] " + str(vdict["datetime"]) + " already exist")
+        pass
+
+print("Finished, " + str(len(extracts)) + " documents inserted")

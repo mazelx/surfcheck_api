@@ -14,6 +14,9 @@ r = requests.get(url)
 soup = BeautifulSoup.BeautifulSoup(r.text)
 extracts = []
 
+print(str(datetime.today()) + " : Starting candhis data scraping")
+print("------------------")
+
 for tr in soup.findAll('tr'):
     vdict = {}
     values = [td.text for td in tr.findAll('td')]
@@ -35,4 +38,6 @@ for tr in soup.findAll('tr'):
         # print("[DUPLICATE] " + str(vdict["datetime"]) + " already exist")
         pass
 
-print("Finished, " + str(len(extracts)) + " documents inserted")
+print("------------------")
+print(str(datetime.today()) + "Finished, " + str(len(extracts)) + " documents inserted")
+

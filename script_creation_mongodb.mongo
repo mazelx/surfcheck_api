@@ -1,0 +1,4 @@
+use surf_check
+db.createCollection("wave_data")
+db.wave_data.createIndex({ "datetime": 1 }, { unique: true })
+

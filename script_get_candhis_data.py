@@ -9,7 +9,7 @@ db = client.surf_check
 wave_data = db.wave_data
 
 url = "http://candhis.cetmef.developpement-durable.gouv.fr/campagne/inc-tempsreel.php?idcampagne=" \
-      + "f7177163c833dff4b38fc8d2872f1ec6"
+      + "6c8349cc7260ae62e3b1396831a8398f"
 r = requests.get(url)
 soup = BeautifulSoup.BeautifulSoup(r.text)
 extracts = []

@@ -14,14 +14,14 @@ r = requests.get(url)
 soup = BeautifulSoup.BeautifulSoup(r.text)
 extracts = []
 
-print(str(datetime.today()) + " : Starting candhis data scraping")
-print("------------------")
+#print(str(datetime.today()) + " : Starting candhis data scraping")
+#print("------------------")
 
 for tr in soup.findAll('tr'):
     vdict = {}
     values = [td.text for td in tr.findAll('td')]
     if len(values) != 7:
-        print("[MALFORMED] " + str(values) + " malformed row")
+        if(len(values) !=0): print("[MALFORMED] " + str(values) + " malformed row")
         continue
     vdict["datetime"] = datetime.strptime(values[0], '%d/%m/%Y %H:%M')
     vdict["wave_height"] = float(values[1])
@@ -38,6 +38,6 @@ for tr in soup.findAll('tr'):
         # print("[DUPLICATE] " + str(vdict["datetime"]) + " already exist")
         pass
 
-print("------------------")
-print(str(datetime.today()) + " Finished, " + str(len(extracts)) + " documents inserted")
+#print("------------------")
+print(str(datetime.today()) + " : [INFO] Finished, " + str(len(extracts)) + " documents inserted")
 

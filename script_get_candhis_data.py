@@ -29,7 +29,7 @@ wave_data = db.wave_data
 
 # candhis parameters
 url = "http://candhis.cetmef.developpement-durable.gouv.fr/campagne/inc-tempsreel.php?idcampagne=" \
-      + "6c8349cc7260ae62e3b1396831a8398f"
+      + "b6d767d2f8ed5d21a44b0e5886680cb9"
 r = requests.get(url)
 soup = BeautifulSoup.BeautifulSoup(r.text)
 extracts = []

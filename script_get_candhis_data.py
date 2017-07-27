@@ -3,20 +3,38 @@ import BeautifulSoup
 from datetime import datetime
 from pymongo import MongoClient
 from pymongo.errors import DuplicateKeyError
+import logging
+from logging.handlers import RotatingFileHandler
+ 
+# logging to file
+logger = logging.getLogger()
+logger.setLevel(logging.DEBUG)
 
+# logging to file
+formatter = logging.Formatter('%(asctime)s :: %(levelname)s :: %(message)s')
+file_handler = RotatingFileHandler('/var/log/surfcheck/candhis_data.log', 'a', 1000000, 1)
+file_handler.setLevel(logging.INFO)
+file_handler.setFormatter(formatter)
+logger.addHandler(file_handler)
+
+# loggging to console
+steam_handler = logging.StreamHandler()
+steam_handler.setLevel(logging.DEBUG)
+logger.addHandler(steam_handler)
+
+# db access
 client = MongoClient()
 db = client.surf_check
 wave_data = db.wave_data
 
+# candhis parameters
 url = "http://candhis.cetmef.developpement-durable.gouv.fr/campagne/inc-tempsreel.php?idcampagne=" \
       + "6c8349cc7260ae62e3b1396831a8398f"
 r = requests.get(url)
 soup = BeautifulSoup.BeautifulSoup(r.text)
 extracts = []
 
-#print(str(datetime.today()) + " : Starting candhis data scraping")
-#print("------------------")
-
+logger.debug("Starting candhis data scraping")
 for tr in soup.findAll('tr'):
     vdict = {}
     values = [td.text for td in tr.findAll('td')]
@@ -33,11 +51,10 @@ for tr in soup.findAll('tr'):
     try:
         result = wave_data.insert(vdict)
         extracts.append(result)
-        print("[INSERT] " + str(vdict["datetime"]) + " ok")
+       	logger.debug("[INSERT] " + str(vdict["datetime"]) + " ok")
     except DuplicateKeyError:
-        # print("[DUPLICATE] " + str(vdict["datetime"]) + " already exist")
+        logger.debug("[DUPLICATE] " + str(vdict["datetime"]) + " already exist")
         pass
 
-#print("------------------")
-print(str(datetime.today()) + " : [INFO] Finished, " + str(len(extracts)) + " documents inserted")
+logger.info("Finished, " + str(len(extracts)) + " documents inserted")
 

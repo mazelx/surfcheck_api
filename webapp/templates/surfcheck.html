@@ -3,16 +3,33 @@
     <head>
         <meta charset="utf-8" />
         <title>{{ titre }}</title>
+        <script type="text/javascript" src="{{url_for('static', filename='d3/d3.v3.js')}}"></script>
+        <link href="{{ url_for('static', filename='css/surfcheck.css') }}" rel="stylesheet" type="text/css" />
     </head>
 
     <body>
-        <h1>{{ titre }}</h1>
+
+        <script type="text/javascript">
+            var dataset = {{ docs|tojson }};
+            d3.select("body").selectAll("div")
+              .data(dataset)
+              .enter()
+              .append("div")
+              .attr("class", "bar")
+              .style("height", function(d) {
+                var barHeight = d.wave_height * 30;  // On agrandit 5 fois l'échelle
+                return barHeight + "px";
+              });
+        </script>
+
+{# 
+        {% for doc in docs %}
         <ul>
-        {% for mot in mots %}
-            <li>{{ mot }}</li>
-        {% endfor %}
+             {% for key, value in doc.items() %}
+                <li>{{key}} : {{value}}</li>
+            {% endfor %}
         </ul>
+        {% endfor %}
+ #}
     </body>
 </html>
-
-

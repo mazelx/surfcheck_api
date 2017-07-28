@@ -11,15 +11,46 @@
 
         <script type="text/javascript">
             var dataset = {{ docs|tojson }};
-            d3.select("body").selectAll("div")
-              .data(dataset)
-              .enter()
-              .append("div")
-              .attr("class", "bar")
-              .style("height", function(d) {
-                var barHeight = d.wave_height * 30;  // On agrandit 5 fois l'échelle
-                return barHeight + "px";
-              });
+            // d3.select("body").selectAll("div")
+            //   .data(dataset)
+            //   .enter()
+            //   .append("div")
+            //   .attr("class", "bar")
+            //   .style("height", function(d) {
+            //     var barHeight = d.wave_height * 30;  // On agrandit 5 fois l'échelle
+            //     return barHeight + "px";
+            //   });
+
+            // Largeur et hauteur
+            var w = 1200;
+            var h = 500;
+            var barPadding = 1; 
+
+            // Crée l'élément SVG
+            var svg = d3.select("body")
+                .append("svg")
+                .attr("width", w)
+                .attr("height", h);
+
+            svg.selectAll("rect")
+                .data(dataset)
+                .enter()
+                .append("rect")
+                // .attr("fill", "teal")
+                .attr("fill", function(d) {
+                    return "rgb(" + (255 - Math.round(d.wave_period * 17)) + ", 0, 0)"; //15s = 255
+                })
+                .attr("x", 0)
+                .attr("y", function(d) {
+                    return h - (d.wave_height * 100);
+                })
+                .attr("width", w / dataset.length - barPadding)
+                .attr("height", function(d) {
+                    return d.wave_height * 100;
+                })
+                .attr("x", function(d, i) {
+                    return i * (w / dataset.length);
+                });
         </script>
 
 {# 

@@ -5,7 +5,7 @@ import requests
 
 app = Flask(__name__)
 
-surfchecks_endpoint = 'http://92.89.90.56:5001/surfchecks'
+surfchecks_endpoint = 'http://localhost:5001/surfchecks'
 
 
 @app.route("/")

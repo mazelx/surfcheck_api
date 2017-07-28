@@ -9,6 +9,8 @@
 
     <body>
 
+        <div class="chart"></div>
+
         <script type="text/javascript">
             var dataset = {{ docs|tojson }};
             // d3.select("body").selectAll("div")
@@ -23,11 +25,11 @@
 
             // Largeur et hauteur
             var w = 1200;
-            var h = 500;
+            var h = 300;
             var barPadding = 1; 
 
             // Crée l'élément SVG
-            var svg = d3.select("body")
+            var svg = d3.select(".chart")
                 .append("svg")
                 .attr("width", w)
                 .attr("height", h);

@@ -3,5 +3,5 @@ div.bar {
     width: 5px;
     height: 75px;   /* On écrasera ça plus tard */
     background-color: teal;
-    margin-right: 1 px;
+    margin-right: 1px;
 }

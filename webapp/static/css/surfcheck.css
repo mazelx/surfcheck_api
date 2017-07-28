@@ -1,12 +1,25 @@
 svg {
-    display: block;
-    margin: auto;
+     display: block;
+     margin: auto;
 }
 
-div.bar {
-    display: inline-block;
-    width: 5px;
-    height: 75px;   /* On écrasera ça plus tard */
+.bar {
     background-color: teal;
-    margin-right: 1px;
+    fill: steelblue;
+}
+
+.bar:hover {
+  fill: brown;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+}
+
+.axis text {
+    font-family: sans-serif;
+    font-size: 11px;
 }

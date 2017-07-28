@@ -9,7 +9,7 @@
 
     <body>
 
-        <div class="chart"></div>
+        <svg class="chart" width="1200" height="300"></svg>
 
         <script type="text/javascript">
             var dataset = {{ docs|tojson }};
@@ -24,35 +24,55 @@
             //   });
 
             // Largeur et hauteur
-            var w = 1200;
-            var h = 300;
+
+            var svg = d3.select("svg");
+            var margin = {top: 20, right: 30, bottom: 10, left: 30};
+            var w = +svg.attr("width") - margin.left - margin.right;
+            var h = +svg.attr("height") - margin.top - margin.bottom;
             var barPadding = 1; 
+            var yAxisPadding = 30;
 
-            // Crée l'élément SVG
-            var svg = d3.select(".chart")
-                .append("svg")
-                .attr("width", w)
-                .attr("height", h);
+            // scale
+            var whScale = d3.scale.linear()
+                    .domain([0, 6])
+                    .range([h, 0]);
 
-            svg.selectAll("rect")
+            // axis
+            var yAxis = d3.svg.axis()
+              .scale(whScale)
+              .orient("left");
+
+            var chart = svg.append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+            // chart
+            chart.append("g")
+                .selectAll("rect")
                 .data(dataset)
                 .enter()
                 .append("rect")
+                .attr("class", "bar")
                 // .attr("fill", "teal")
-                .attr("fill", function(d) {
-                    return "rgb(" + (255 - Math.round(d.wave_period * 17)) + ", 0, 0)"; //15s = 255
-                })
+                // .attr("fill", function(d) {
+                //     return "rgb(" + (255 - Math.round(d.wave_period * 17)) + ", 0, 0)"; //15s = 255
+                // })
                 .attr("x", 0)
                 .attr("y", function(d) {
-                    return h - (d.wave_height * 100);
+                    return whScale(d.wave_height);
                 })
                 .attr("width", w / dataset.length - barPadding)
                 .attr("height", function(d) {
-                    return d.wave_height * 100;
+                    return h - whScale(d.wave_height);
                 })
                 .attr("x", function(d, i) {
                     return i * (w / dataset.length);
                 });
+
+                
+            // Y axis
+            chart.append("g")
+                .attr("class", "axis")
+                .call(yAxis);
         </script>
 
 {# 

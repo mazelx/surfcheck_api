@@ -12,7 +12,7 @@ db = client.surf_check
 wave_data = db.wave_data
 
 wave_fields = {
-	"datetime": fields.DateTime(dt_format="iso8601"),
+        "datetime": fields.DateTime(dt_format="iso8601"),
         "water_temperature": fields.String,
         "wave_direction": fields.String,
         "wave_height": fields.String,
@@ -25,23 +25,26 @@ wave_fields = {
 class SurfCheck(Resource):
     @marshal_with(wave_fields, envelope='wave_data')
     def get(self, dt_value):
-	if(dt_value == 'last'):
-	    return wave_data.find().sort([("datetime",0)]).limit(1)[0]
-	dt_max = datetime.datetime.strptime(dt_value, '%Y%m%d%H%M')
-	dt_min = dt_max - datetime.timedelta(minutes=30)
-	doc = wave_data.find_one({"datetime": {"$lte":dt_max, "$gt": dt_min}},{"_id": 0})
-	return doc
+    if(dt_value == 'last'):
+        return wave_data.find().sort([("datetime",0)]).limit(1)[0]
+    dt_max = datetime.datetime.strptime(dt_value, '%Y%m%d%H%M')
+    dt_min = dt_max - datetime.timedelta(minutes=30)
+    doc = wave_data.find_one({"datetime": {"$lte":dt_max, "$gt": dt_min}},{"_id": 0})
+    return doc
 
 #    def put(self, datetime):
-#	dt = datetime.strptime(datetime, '%Y%m%d%H%M')
-#	surfchecks[datetime] = request.form['data']
-#	return {datetime: surfchecks[datetime]}
+#    dt = datetime.strptime(datetime, '%Y%m%d%H%M')
+#    surfchecks[datetime] = request.form['data']
+#    return {datetime: surfchecks[datetime]}
 
 
 class SurfCheckList(Resource):
     @marshal_with(wave_fields, envelope='wave_data')
     def get(self):
- 	return list(wave_data.find().sort([("datetime",0)]).limit(100).sort([("datetime",1)]))
+        dt_max = datetime.datetime.utcnow()
+        dt_min = dt_max - datetime.timedelta(day=1)
+        docs = wave_data.find({"datetime": {"$lte":dt_max, "$gt": dt_min}}).sort([("datetime",1)])
+        return list(docs)
 
 api.add_resource(SurfCheck, '/surfchecks/<string:dt_value>')
 api.add_resource(SurfCheckList, '/surfchecks')

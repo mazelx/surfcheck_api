@@ -41,7 +41,7 @@ class SurfCheck(Resource):
 class SurfCheckList(Resource):
     @marshal_with(wave_fields, envelope='wave_data')
     def get(self):
- 	return list(wave_data.find().sort([("datetime",0)]).limit(100))
+ 	return list(wave_data.find().sort([("datetime",0)]).limit(100).sort([("datetime",1)]))
 
 api.add_resource(SurfCheck, '/surfchecks/<string:dt_value>')
 api.add_resource(SurfCheckList, '/surfchecks')

@@ -7,12 +7,6 @@ import _strptime
 app = Flask(__name__)
 api = Api(app)
 
-surfchecks = {
-    "201707261600": {'yo': 'yooooo'},
-    "201707261530": {'he': 'heeeee'},
-}
-
-
 client = MongoClient()
 db = client.surf_check
 wave_data = db.wave_data
@@ -31,6 +25,8 @@ wave_fields = {
 class SurfCheck(Resource):
     @marshal_with(wave_fields, envelope='wave_data')
     def get(self, dt_value):
+	if(dt_value == 'last'):
+	    return wave_data.find().sort([("datetime",0)]).limit(1)[0]
 	dt_max = datetime.datetime.strptime(dt_value, '%Y%m%d%H%M')
 	dt_min = dt_max - datetime.timedelta(minutes=30)
 	doc = wave_data.find_one({"datetime": {"$lte":dt_max, "$gt": dt_min}},{"_id": 0})
@@ -47,7 +43,7 @@ class SurfCheckList(Resource):
     def get(self):
  	return list(wave_data.find().sort([("datetime",0)]).limit(100))
 
-api.add_resource(SurfCheck, '/surfcheck/<string:dt_value>')
+api.add_resource(SurfCheck, '/surfchecks/<string:dt_value>')
 api.add_resource(SurfCheckList, '/surfchecks')
 
 if __name__ == '__main__':

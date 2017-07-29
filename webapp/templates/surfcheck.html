@@ -12,67 +12,80 @@
         <svg class="chart" width="1200" height="300"></svg>
 
         <script type="text/javascript">
-            var dataset = {{ docs|tojson }};
-            // d3.select("body").selectAll("div")
-            //   .data(dataset)
-            //   .enter()
-            //   .append("div")
-            //   .attr("class", "bar")
-            //   .style("height", function(d) {
-            //     var barHeight = d.wave_height * 30;  // On agrandit 5 fois l'échelle
-            //     return barHeight + "px";
-            //   });
+            
 
-            // Largeur et hauteur
+            var api = "http://localhost:5001/surfchecks";
 
-            var svg = d3.select("svg");
-            var margin = {top: 20, right: 30, bottom: 10, left: 30};
-            var w = +svg.attr("width") - margin.left - margin.right;
-            var h = +svg.attr("height") - margin.top - margin.bottom;
-            var barPadding = 1; 
-            var yAxisPadding = 30;
+            d3.json(api, function (json_data) {
+                var data = json_data.wave_data;
+                var minDate =  new Date(data[0].datetime),
+                    maxDate = new Date(data[data.length-1].datetime);
+                // Largeur et hauteur
 
-            // scale
-            var whScale = d3.scale.linear()
-                    .domain([0, 6])
-                    .range([h, 0]);
+                var svg = d3.select("svg");
+                var margin = {top: 20, right: 30, bottom: 30, left: 30};
+                var w = +svg.attr("width") - margin.left - margin.right;
+                var h = +svg.attr("height") - margin.top - margin.bottom;
+                var barPadding = 1; 
+                var yAxisPadding = 30;
 
-            // axis
-            var yAxis = d3.svg.axis()
-              .scale(whScale)
-              .orient("left");
+                // Parse the date / time
+                // var parseDate = d3.time.format("%Y-%m-%dT%H:%M:%S.%LZ").parse;
 
-            var chart = svg.append("g")
-                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+                // scale
+                var whScale = d3.scale.linear()
+                        .domain([0, 2])
+                        .range([h, 0]);
+                var dtScale = d3.time.scale().domain([minDate, maxDate]).range([0, w]);
 
-            // chart
-            chart.append("g")
-                .selectAll("rect")
-                .data(dataset)
-                .enter()
-                .append("rect")
-                .attr("class", "bar")
-                // .attr("fill", "teal")
-                // .attr("fill", function(d) {
-                //     return "rgb(" + (255 - Math.round(d.wave_period * 17)) + ", 0, 0)"; //15s = 255
-                // })
-                .attr("x", 0)
-                .attr("y", function(d) {
-                    return whScale(d.wave_height);
-                })
-                .attr("width", w / dataset.length - barPadding)
-                .attr("height", function(d) {
-                    return h - whScale(d.wave_height);
-                })
-                .attr("x", function(d, i) {
-                    return i * (w / dataset.length);
-                });
+                // axis
+                var yAxis = d3.svg.axis()
+                  .scale(whScale)
+                  .orient("left");
 
-                
-            // Y axis
-            chart.append("g")
-                .attr("class", "axis")
-                .call(yAxis);
+                var xAxis = d3.svg.axis()
+                    .scale(dtScale)
+                    .orient("bottom")
+                    .tickFormat(d3.time.format("%d-%m %H:%M"));
+
+                // chart and axis group
+                var chart = svg.append("g")
+                    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+                // chart
+                chart.append("g")
+                    .selectAll("rect")
+                    .data(data)
+                    .enter()
+                    .append("rect")
+                    .attr("class", "bar")
+                    // .attr("fill", "teal")
+                    // .attr("fill", function(d) {
+                    //     return "rgb(" + (255 - Math.round(d.wave_period * 17)) + ", 0, 0)"; //15s = 255
+                    // })
+                    .attr("x", 0)
+                    .attr("y", function(d) {
+                        return whScale(d.wave_height);
+                    })
+                    .attr("width", w / data.length - barPadding)
+                    .attr("height", function(d) {
+                        return h - whScale(d.wave_height);
+                    })
+                    .attr("x", function(d, i) {
+                        return i * (w / data.length);
+                    });
+
+                    
+                // Y axis
+                chart.append("g")
+                    .attr("class", "y axis")
+                    .call(yAxis);
+                // X axis
+                chart.append("g")
+                    .attr("class", "x axis")
+                    .attr("transform", "translate(0," + h + ")")
+                    .call(xAxis)
+            })
         </script>
 
 {# 

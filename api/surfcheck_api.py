@@ -3,9 +3,13 @@ from flask_restful import Resource, Api, fields, marshal_with
 from pymongo import MongoClient
 import datetime
 import _strptime
+from flask.ext.cors import CORS
+
 
 app = Flask(__name__)
 api = Api(app)
+cors = CORS(app)
+
 
 client = MongoClient()
 db = client.surf_check

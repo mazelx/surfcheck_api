@@ -1,10 +1,18 @@
 svg {
-     display: block;
-     margin: auto;
+     // display: block;
+     // margin: auto;
+}
+
+.indicators {
+    text-anchor: middle;
+    font-size: 30px;
+}
+
+.invisible {
+  display: none;
 }
 
 .bar {
-    background-color: teal;
     fill: steelblue;
 }
 

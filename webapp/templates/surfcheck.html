@@ -9,8 +9,7 @@
 
     <body>
 
-        <svg class="chart" width="1200" height="300"></svg>
-
+        <svg width="900" height="200"></svg>
         <script type="text/javascript">
             
 
@@ -23,9 +22,10 @@
                 // Largeur et hauteur
 
                 var svg = d3.select("svg");
-                var margin = {top: 20, right: 30, bottom: 30, left: 30};
-                var w = +svg.attr("width") - margin.left - margin.right;
-                var h = +svg.attr("height") - margin.top - margin.bottom;
+                var ind_width = 30;
+                var chart_margin = {top: 20, right: 30, bottom: 30, left: 30};
+                var chart_weight = +svg.attr("width") - chart_margin.left - chart_margin.right - ind_width;
+                var chart_height = +svg.attr("height") - chart_margin.top - chart_margin.bottom;
                 var barPadding = 1; 
                 var yAxisPadding = 30;
 
@@ -35,14 +35,13 @@
                 // scale
                 var whScale = d3.scale.linear()
                         .domain([0, 3])
-                        .range([h, 0]);
-                var dtScale = d3.time.scale().domain([minDate, maxDate]).range([0, w]);
+                        .range([chart_height, 0]);
+                var dtScale = d3.time.scale().domain([minDate, maxDate]).range([0, chart_weight]);
 
                 // axis
                 var yAxis = d3.svg.axis()
                   .scale(whScale)
                   .orient("left");
-
                 var xAxis = d3.svg.axis()
                     .scale(dtScale)
                     .orient("bottom")
@@ -50,7 +49,8 @@
 
                 // chart and axis group
                 var chart = svg.append("g")
-                    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+                    .attr("class", "chart")
+                    .attr("transform", "translate(" + chart_margin.left + "," + chart_margin.top + ")");
 
                 // chart
                 chart.append("g")
@@ -67,12 +67,12 @@
                     .attr("y", function(d) {
                         return whScale(d.wave_height);
                     })
-                    .attr("width", w / data.length - barPadding)
+                    .attr("width", chart_weight / data.length - barPadding)
                     .attr("height", function(d) {
-                        return h - whScale(d.wave_height);
+                        return chart_height - whScale(d.wave_height);
                     })
                     .attr("x", function(d, i) {
-                        return i * (w / data.length);
+                        return i * (chart_weight / data.length);
                     });
 
                     
@@ -83,8 +83,19 @@
                 // X axis
                 chart.append("g")
                     .attr("class", "x axis")
-                    .attr("transform", "translate(0," + h + ")")
+                    .attr("transform", "translate(0," + chart_height + ")")
                     .call(xAxis)
+
+                // indicators
+                svg.append("g")
+                    .selectAll("text")
+                    .data(data)
+                    .enter()
+                    .append("text")
+                    .attr("class", "indicators invisible")
+                    .attr("x", chart_weight + chart_margin.left + 30)
+                    .attr("y", chart_height/2)
+                    .text(function(d) { return d.wave_height; });
             })
         </script>
 

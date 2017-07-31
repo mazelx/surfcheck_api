@@ -39,7 +39,8 @@ for tr in soup.findAll('tr'):
     vdict = {}
     values = [td.text for td in tr.findAll('td')]
     if len(values) != 7:
-        if(len(values) !=0): print("[MALFORMED] " + str(values) + " malformed row")
+        if len(values) != 0:
+            print("[MALFORMED] " + str(values) + " malformed row")
         continue
     vdict["datetime"] = datetime.strptime(values[0], '%d/%m/%Y %H:%M')
     vdict["wave_height"] = float(values[1])
@@ -51,7 +52,7 @@ for tr in soup.findAll('tr'):
     try:
         result = wave_data.insert(vdict)
         extracts.append(result)
-       	logger.debug("[INSERT] " + str(vdict["datetime"]) + " ok")
+        logger.debug("[INSERT] " + str(vdict["datetime"]) + " ok")
     except DuplicateKeyError:
         logger.debug("[DUPLICATE] " + str(vdict["datetime"]) + " already exist")
         pass

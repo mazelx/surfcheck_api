@@ -8,27 +8,47 @@ svg {
     font-size: 30px;
 }
 
-.invisible {
-  display: none;
-}
-
 .bar {
     fill: steelblue;
 }
 
 .bar:hover {
+  fill: blue;
+}
+
+.bar.active {
   fill: brown;
 }
 
-.axis path,
-.axis line {
+.axis path, .axis line {
     fill: none;
     stroke: darkgray;
     shape-rendering: crispEdges;
 }
 
 .axis text {
-    font-family: sans-serif;
-    font-size: 11px;
-    fill: darkgray;
+  font-family: sans-serif;
+  font-size: 11px;
+  fill: darkgray;
 }
+
+#wave-height {
+}
+
+#ind-wave-height {
+  text-align: center;
+}
+
+.indicator-text {
+  text-align: center;
+  font-size: 7em;
+  color: brown;
+  width: 100%;
+}
+
+
+.invisible {
+  display: none;
+}
+
+    

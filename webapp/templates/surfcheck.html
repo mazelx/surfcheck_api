@@ -42,7 +42,7 @@
             d3.json(api, function (json_data) {
                 var width=700;
                 var height=200;
-                var data = json_data.wave_data;
+                var data = json_data;
                 var minDate =  new Date(data[0].datetime),
                     maxDate = new Date(data[data.length-1].datetime);
                 // Largeur et hauteur
@@ -117,6 +117,7 @@
 
                 // indicators
                 d3.select("#ind-wave-height")
+                    .selectAll("div")
                     .data(data)
                     .enter()
                     .append("div")

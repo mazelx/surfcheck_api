@@ -34,14 +34,17 @@ class SurfCheck(Resource):
         wave_dt_min = wave_dt_max - datetime.timedelta(minutes=30)
         wave_doc = wave_data.find_one({"datetime": {"$lte": wave_dt_max, "$gt": wave_dt_min}}, {"_id": 0})
         if(not wave_doc):
-            print("ko")
-            return {}
+            print("wave doc ko")
+            return "error", 404
         print("wave doc dt :" + str(wave_doc.get("datetime")))
         weather_dt_max = wave_doc.get("datetime") + datetime.timedelta(minutes=15)
         weather_dt_min = wave_doc.get("datetime") - datetime.timedelta(minutes=15)
         weather_doc = weather_data.find_one({"datetime":
                                             {"$lte": weather_dt_max, "$gt": weather_dt_min}},
                                             {"datetime": 0})
+        if(not weather_doc):
+            print("weather doc ko")
+            return "error", 404
         print("wearther doc : " + str(weather_doc))
         doc = wave_doc.copy()
         doc.update(weather_doc)

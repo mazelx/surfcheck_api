@@ -1,0 +1,1 @@
+{ "options" : { "create" : "wave_data" }, "indexes" : [ { "v" : 1, "name" : "_id_", "key" : { "_id" : 1 }, "ns" : "surf_check.wave_data" }, { "v" : 1, "name" : "datetime_1", "key" : { "datetime" : 1 }, "unique" : true, "ns" : "surf_check.wave_data" } ] }

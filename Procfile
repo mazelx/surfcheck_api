@@ -1,1 +1,1 @@
-gunicorn api.surfcheck_api:app
+web: gunicorn api.surfcheck_api:app

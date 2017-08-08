@@ -2,6 +2,7 @@ from flask import Flask
 from flask_restful import Resource, Api, fields, marshal_with
 from pymongo import MongoClient
 import datetime
+import os
 from flask_cors import CORS
 
 
@@ -10,7 +11,7 @@ api = Api(app)
 cors = CORS(app)
 
 
-client = MongoClient()
+client = MongoClient(os.environ['MONGODB_URI'])
 db = client.surf_check
 wave_data = db.wave_data
 weather_data = db.weather_data

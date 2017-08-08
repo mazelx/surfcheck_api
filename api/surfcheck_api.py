@@ -11,7 +11,10 @@ api = Api(app)
 cors = CORS(app)
 
 
-client = MongoClient(os.environ['MONGODB_URI'])
+client = MongoClient(os.environ['MONGODB_URI'],
+                     connectTimeoutMS=30000,
+                     socketTimeoutMS=None,
+                     socketKeepAlive=True)
 db = client.surf_check
 wave_data = db.wave_data
 weather_data = db.weather_data

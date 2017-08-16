@@ -15,7 +15,7 @@ client = MongoClient(os.environ['MONGODB_URI'],
                      connectTimeoutMS=30000,
                      socketTimeoutMS=None,
                      socketKeepAlive=True)
-db = client.surf_check
+db = client.get_default_database()
 wave_data = db.wave_data
 weather_data = db.weather_data
 

@@ -13,11 +13,11 @@ def main():
     logger.setLevel(logging.DEBUG)
 
     # logging to file
-    formatter = logging.Formatter('%(asctime)s :: %(levelname)s :: %(message)s')
-    file_handler = RotatingFileHandler('/var/log/surfcheck/openweather_data.log', 'a', 1000000, 1)
-    file_handler.setLevel(logging.INFO)
-    file_handler.setFormatter(formatter)
-    logger.addHandler(file_handler)
+    # formatter = logging.Formatter('%(asctime)s :: %(levelname)s :: %(message)s')
+    # file_handler = RotatingFileHandler('/var/log/surfcheck/openweather_data.log', 'a', 1000000, 1)
+    # file_handler.setLevel(logging.INFO)
+    # file_handler.setFormatter(formatter)
+    # logger.addHandler(file_handler)
 
     # loggging to console
     steam_handler = logging.StreamHandler()

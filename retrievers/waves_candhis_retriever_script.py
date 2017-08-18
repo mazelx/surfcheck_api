@@ -48,13 +48,18 @@ def main():
             if len(values) != 0:
                 print("[MALFORMED] " + str(values) + " malformed row")
             continue
-        vdict["datetime"] = datetime.strptime(values[0], '%d/%m/%Y %H:%M')
-        vdict["wave_height"] = float(values[1])
-        vdict["wave_height_max"] = float(values[2])
-        vdict["wave_period"] = float(values[3])
-        vdict["wave_direction"] = float(values[4])
-        vdict["wave_spreading"] = float(values[5])
-        vdict["water_temperature"] = float(values[6])
+        try:
+            vdict["datetime"] = datetime.strptime(values[0], '%d/%m/%Y %H:%M')
+            vdict["wave_height"] = float(values[1])
+            vdict["wave_height_max"] = float(values[2])
+            vdict["wave_period"] = float(values[3])
+            vdict["wave_direction"] = float(values[4])
+            vdict["wave_spreading"] = float(values[5])
+            vdict["water_temperature"] = float(values[6])
+        except ValueError:
+            logger.debug("[ERROR] Error parsing row : " + str(values))
+            continue
+
         try:
             result = wave_data.insert(vdict)
             extracts.append(result)
@@ -62,6 +67,7 @@ def main():
         except DuplicateKeyError:
             logger.debug("[DUPLICATE] " + str(vdict["datetime"]) + " already exist")
             pass
+
 
     logger.info("Finished, " + str(len(extracts)) + " documents inserted")
 

@@ -32,12 +32,12 @@ wave_fields = {"datetime": fields.DateTime(dt_format="iso8601"),
 class SurfCheck(Resource):
     @marshal_with(wave_fields)
     def get(self, dt_value):
-        if(dt_value == 'last'):
-            return wave_data.find({}).sort("datetime", 1).limit(1)[0]
+        if dt_value == 'last':
+            return wave_data.find({}).sort("datetime", -1).limit(1)[0]
         wave_dt_max = datetime.datetime.strptime(dt_value, '%Y%m%d%H%M')
         wave_dt_min = wave_dt_max - datetime.timedelta(minutes=30)
         wave_doc = wave_data.find_one({"datetime": {"$lte": wave_dt_max, "$gt": wave_dt_min}}, {"_id": 0})
-        if(not wave_doc):
+        if not wave_doc:
             print("wave doc ko")
             return "error", 404
         print("wave doc dt :" + str(wave_doc.get("datetime")))
@@ -46,7 +46,7 @@ class SurfCheck(Resource):
         weather_doc = weather_data.find_one({"datetime":
                                             {"$lte": weather_dt_max, "$gt": weather_dt_min}},
                                             {"datetime": 0})
-        if(not weather_doc):
+        if not weather_doc:
             print("weather doc ko")
             return "error", 404
         print("wearther doc : " + str(weather_doc))

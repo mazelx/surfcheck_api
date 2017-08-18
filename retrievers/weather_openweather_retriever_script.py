@@ -49,3 +49,7 @@ def main():
     data["datetime"] = datetime.today()
     result = weather_data.insert(data)
     logger.info("Data inserted for " + location + " for datetime: " + str(data["datetime"]))
+
+
+if __name__ == '__main__':
+    main()

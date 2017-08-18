@@ -65,3 +65,5 @@ def main():
 
     logger.info("Finished, " + str(len(extracts)) + " documents inserted")
 
+if __name__ == '__main__':
+    main()

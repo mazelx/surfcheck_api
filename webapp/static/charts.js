@@ -3,13 +3,13 @@
 
 
             d3.json(api, function (json_data) {
-                var width=700;
-                var height=200;
+                var width = 700;
+                var height = 200;
                 var data = json_data;
                 var minDate =  new Date(data[0].datetime),
                     maxDate = new Date(data[data.length-1].datetime);
 
-                d3.select("#check-datetime").text(minDate.toLocaleString())
+                d3.select("#check-datetime").text(maxDate.toLocaleString())
 
                 // Largeur et hauteur
                 var chart_margin = {top: 0, right: 0, bottom: 0, left: 0};

@@ -1,3 +1,4 @@
+import custom_fields
 from flask import Flask
 from flask_restful import Resource, Api, fields, marshal_with
 from pymongo import MongoClient
@@ -19,7 +20,8 @@ db = client.get_default_database()
 wave_data = db.wave_data
 weather_data = db.weather_data
 
-wave_fields = {"datetime": fields.DateTime(dt_format="iso8601"),
+
+wave_fields = {"datetime": custom_fields.DateTimeIsoZ,
                "water_temperature": fields.String,
                "wave_direction": fields.String,
                "wave_height": fields.String,

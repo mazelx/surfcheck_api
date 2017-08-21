@@ -8,8 +8,10 @@
                 var data = json_data;
                 var minDate =  new Date(data[0].datetime),
                     maxDate = new Date(data[data.length-1].datetime);
-                // Largeur et hauteur
 
+                d3.select("#check-datetime").text(minDate.toLocaleString())
+
+                // Largeur et hauteur
                 var chart_margin = {top: 0, right: 0, bottom: 0, left: 0};
                 var chart_weight = width - chart_margin.left - chart_margin.right
                 var chart_height = height - chart_margin.top - chart_margin.bottom;

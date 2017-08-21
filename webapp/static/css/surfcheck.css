@@ -20,6 +20,10 @@ svg {
   fill: brown;
 }
 
+rect.bar.height-max {
+    fill: darkgray;
+}
+
 .axis path, .axis line {
     fill: none;
     stroke: darkgray;
@@ -30,13 +34,6 @@ svg {
   font-family: sans-serif;
   font-size: 11px;
   fill: darkgray;
-}
-
-#wave-height {
-}
-
-#ind-wave-height {
-  text-align: center;
 }
 
 .indicator-text {

@@ -44,11 +44,33 @@
 
                 // wave height chart
                 var whChart = d3.select("#chart-wave-height")
-                whChart.append("g")
+                var whChartData = whChart.append("g")
                     .selectAll("rect")
                     .data(data)
                     .enter()
-                    .append("rect")
+
+                // wave height chart max
+                whChartData.append("rect")
+                    .attr("class", "bar height-max")
+                    .attr("data-wave_height-max", function(d) {return d.wave_height_max})
+                    // .attr("fill", "teal")
+                    // .attr("fill", function(d) {
+                    //     return "rgb(" + (255 - Math.round(d.wave_period * 17)) + ", 0, 0)"; //15s = 255
+                    // })
+                    .attr("x", 0)
+                    .attr("y", function(d) {
+                        return whScale(d.wave_height_max);
+                    })
+                    .attr("width", chart_weight / data.length - barPadding)
+                    .attr("height", function(d) {
+                        return chart_height - whScale(d.wave_height_max);
+                    })
+                    .attr("x", function(d, i) {
+                        return i * (chart_weight / data.length);
+                    });
+
+                 // wave height chart
+                whChartData.append("rect")
                     .attr("class", function(d, i) {
                         if(i == data.length - 1) {
                             return "bar active";
@@ -70,7 +92,8 @@
                     })
                     .attr("x", function(d, i) {
                         return i * (chart_weight / data.length);
-                    });
+                    })
+
 
                 // wave period chart
                 var wpChart = d3.select("#chart-wave-period")

@@ -1,0 +1,58 @@
+[
+  {
+    "_id": {
+        "$oid": "593d354774fece2a8dfaae7c"
+    },
+    "wave_period": 14.8,
+    "wave_height_max": 4.1,
+    "datetime": {
+        "$date": "2017-06-11T12:00:00.000Z"
+    },
+    "wave_height": 2.9,
+    "wave_direction": 295,
+    "wave_spreading": 15,
+    "water_temperature": 19.9
+},
+  {
+    "_id": {
+        "$oid": "593d35ed74fece2abb539b36"
+    },
+    "wave_period": 13.5,
+    "wave_height_max": 4.6,
+    "datetime": {
+        "$date": "2017-06-11T11:30:00.000Z"
+    },
+    "wave_height": 2.5,
+    "wave_direction": 291,
+    "wave_spreading": 16,
+    "water_temperature": 19.7
+},
+  {
+    "_id": {
+        "$oid": "593d35ed74fece2abb539b37"
+    },
+    "wave_period": 14.4,
+    "wave_height_max": 3.9,
+    "datetime": {
+        "$date": "2017-06-11T11:00:00.000Z"
+    },
+    "wave_height": 2.6,
+    "wave_direction": 295,
+    "wave_spreading": 15,
+    "water_temperature": 19.6
+},
+  {
+    "_id": {
+        "$oid": "593d35ed74fece2abb539b38"
+    },
+    "wave_period": 14.3,
+    "wave_height_max": 4.6,
+    "datetime": {
+        "$date": "2017-06-11T10:30:00.000Z"
+    },
+    "wave_height": 2.9,
+    "wave_direction": 291,
+    "wave_spreading": 14,
+    "water_temperature": 19.4
+}
+]

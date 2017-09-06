@@ -11,7 +11,6 @@ app = Flask(__name__)
 api = Api(app)
 cors = CORS(app)
 
-
 client = MongoClient(os.environ['MONGODB_URI'],
                      connectTimeoutMS=30000,
                      socketTimeoutMS=None,

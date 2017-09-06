@@ -1,0 +1,241 @@
+[{
+    "_id": {
+        "$oid": "597afe3d74fece02c566f781"
+    },
+    "clouds": {
+        "all": 90
+    },
+    "name": "Biarritz",
+    "visibility": 10000,
+    "datetime": {
+        "$date": "2017-07-28T09:05:01.462Z"
+    },
+    "sys": {
+        "country": "FR",
+        "sunset": 1501270366,
+        "message": 0.0024,
+        "type": 1,
+        "id": 5544,
+        "sunrise": 1501217523
+    },
+    "weather": [
+        {
+            "main": "Clouds",
+            "id": 804,
+            "icon": "04d",
+            "description": "overcast clouds"
+        }
+    ],
+    "coord": {
+        "lat": 43.48,
+        "lon": -1.56
+    },
+    "base": "stations",
+    "dt": 1501232400,
+    "main": {
+        "pressure": 1019,
+        "temp_min": 294.15,
+        "temp_max": 295.15,
+        "temp": 294.51,
+        "humidity": 77
+    },
+    "id": 3032797,
+    "wind": {
+        "speed": 2.1,
+        "deg": 360
+    },
+    "cod": 200
+},
+  {
+    "_id": {
+        "$oid": "597d9a7974fece276b2ea43f"
+    },
+    "clouds": {
+        "all": 90
+    },
+    "name": "Biarritz",
+    "visibility": 10000,
+    "datetime": {
+        "$date": "2017-07-30T08:36:09.631Z"
+    },
+    "sys": {
+        "country": "FR",
+        "sunset": 1501443031,
+        "message": 0.0027,
+        "type": 1,
+        "id": 5544,
+        "sunrise": 1501390447
+    },
+    "weather": [
+        {
+            "main": "Clouds",
+            "id": 804,
+            "icon": "04d",
+            "description": "overcast clouds"
+        }
+    ],
+    "coord": {
+        "lat": 43.48,
+        "lon": -1.56
+    },
+    "base": "stations",
+    "dt": 1501403400,
+    "main": {
+        "pressure": 1015,
+        "temp_min": 296.15,
+        "temp_max": 297.15,
+        "temp": 296.83,
+        "humidity": 73
+    },
+    "id": 3032797,
+    "wind": {
+        "speed": 2.6,
+        "deg": 40
+    },
+    "cod": 200
+},
+  {
+    "_id": {
+        "$oid": "597f274474fece4b72a7d88d"
+    },
+    "clouds": {
+        "all": 90
+    },
+    "name": "Biarritz",
+    "visibility": 10000,
+    "datetime": {
+        "$date": "2017-07-31T12:49:08.695Z"
+    },
+    "sys": {
+        "country": "FR",
+        "sunset": 1501529348,
+        "message": 0.003,
+        "type": 1,
+        "id": 5544,
+        "sunrise": 1501476922
+    },
+    "weather": [
+        {
+            "main": "Clouds",
+            "id": 804,
+            "icon": "04d",
+            "description": "overcast clouds"
+        }
+    ],
+    "coord": {
+        "lat": 43.48,
+        "lon": -1.56
+    },
+    "base": "stations",
+    "dt": 1501504200,
+    "main": {
+        "pressure": 1012,
+        "temp_min": 296.15,
+        "temp_max": 299.15,
+        "temp": 297.27,
+        "humidity": 69
+    },
+    "id": 3032797,
+    "wind": {
+        "speed": 4.6,
+        "deg": 330
+    },
+    "cod": 200
+},
+  {
+    "_id": {
+        "$oid": "597f2e4d74fece5093b01643"
+    },
+    "clouds": {
+        "all": 75
+    },
+    "name": "Biarritz",
+    "visibility": 10000,
+    "datetime": {
+        "$date": "2017-07-31T13:19:09.739Z"
+    },
+    "sys": {
+        "country": "FR",
+        "sunset": 1501529346,
+        "message": 0.0026,
+        "type": 1,
+        "id": 5544,
+        "sunrise": 1501476923
+    },
+    "weather": [
+        {
+            "main": "Clouds",
+            "id": 803,
+            "icon": "04d",
+            "description": "broken clouds"
+        }
+    ],
+    "coord": {
+        "lat": 43.48,
+        "lon": -1.56
+    },
+    "base": "stations",
+    "dt": 1501506000,
+    "main": {
+        "pressure": 1012,
+        "temp_min": 296.15,
+        "temp_max": 299.15,
+        "temp": 297.47,
+        "humidity": 64
+    },
+    "id": 3032797,
+    "wind": {
+        "speed": 3.6,
+        "deg": 350
+    },
+    "cod": 200
+},
+  {
+    "_id": {
+        "$oid": "597f2e6b74fece509d829a23"
+    },
+    "clouds": {
+        "all": 75
+    },
+    "name": "Biarritz",
+    "visibility": 10000,
+    "datetime": {
+        "$date": "2017-07-31T13:19:39.230Z"
+    },
+    "sys": {
+        "country": "FR",
+        "sunset": 1501529346,
+        "message": 0.0026,
+        "type": 1,
+        "id": 5544,
+        "sunrise": 1501476923
+    },
+    "weather": [
+        {
+            "main": "Clouds",
+            "id": 803,
+            "icon": "04d",
+            "description": "broken clouds"
+        }
+    ],
+    "coord": {
+        "lat": 43.48,
+        "lon": -1.56
+    },
+    "base": "stations",
+    "dt": 1501506000,
+    "main": {
+        "pressure": 1012,
+        "temp_min": 296.15,
+        "temp_max": 299.15,
+        "temp": 297.47,
+        "humidity": 64
+    },
+    "id": 3032797,
+    "wind": {
+        "speed": 3.6,
+        "deg": 350
+    },
+    "cod": 200
+}
+  ]

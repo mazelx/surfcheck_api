@@ -1,23 +1,14 @@
-import custom_fields
+from api import custom_fields
+from api.data_provider import WeatherProvider, WavesProvider
 from flask import Flask
 from flask_restful import Resource, Api, fields, marshal_with
-from pymongo import MongoClient
 import datetime
-import os
 from flask_cors import CORS
 
 
 app = Flask(__name__)
 api = Api(app)
 cors = CORS(app)
-
-client = MongoClient(os.environ['MONGODB_URI'],
-                     connectTimeoutMS=30000,
-                     socketTimeoutMS=None,
-                     socketKeepAlive=True)
-db = client.get_default_database()
-wave_data = db.wave_data
-weather_data = db.weather_data
 
 
 wave_fields = {"datetime": custom_fields.DateTimeIsoZ,
@@ -29,31 +20,25 @@ wave_fields = {"datetime": custom_fields.DateTimeIsoZ,
                "wave_spreading": fields.String
                }
 
+weather_fields = {"datetime": custom_fields.DateTimeIsoZ,
+                  "name": fields.String,
+                  "wind": fields.String,
+                  }
 
-class SurfCheck(Resource):
+
+
+class WaveDoc(Resource):
     @marshal_with(wave_fields)
     def get(self, dt_value):
+        provider = WavesProvider()
         if dt_value == 'last':
-            return wave_data.find({}).sort("datetime", -1).limit(1)[0]
-        wave_dt_max = datetime.datetime.strptime(dt_value, '%Y%m%d%H%M')
-        wave_dt_min = wave_dt_max - datetime.timedelta(minutes=30)
-        wave_doc = wave_data.find_one({"datetime": {"$lte": wave_dt_max, "$gt": wave_dt_min}}, {"_id": 0})
-        if not wave_doc:
+            doc = provider.latest_one()
+        else:
+            doc = provider.latest_one(dt_value)
+        if not doc:
             print("wave doc ko")
             return "error", 404
-        print("wave doc dt :" + str(wave_doc.get("datetime")))
-        weather_dt_max = wave_doc.get("datetime") + datetime.timedelta(minutes=15)
-        weather_dt_min = wave_doc.get("datetime") - datetime.timedelta(minutes=15)
-        weather_doc = weather_data.find_one({"datetime":
-                                            {"$lte": weather_dt_max, "$gt": weather_dt_min}},
-                                            {"datetime": 0})
-        if not weather_doc:
-            print("weather doc ko")
-            return "error", 404
-        print("wearther doc : " + str(weather_doc))
-        doc = wave_doc.copy()
-        doc.update(weather_doc)
-        doc = wave_doc
+        print("wave doc dt :" + str(doc.get("datetime")))
         return doc
 
 #    def put(self, datetime):
@@ -62,18 +47,41 @@ class SurfCheck(Resource):
 #    return {datetime: surfchecks[datetime]}
 
 
-class SurfCheckList(Resource):
+class WaveList(Resource):
     @marshal_with(wave_fields)
     def get(self):
         dt_max = datetime.datetime.utcnow()
-        dt_min = dt_max - datetime.timedelta(hours=49)
-        wave_docs = wave_data.find({"datetime": {"$lte": dt_max, "$gt": dt_min}}).sort([("datetime", 1)])
-        # weather_docs = wave
-        return list(wave_docs)
+        docs = WavesProvider().latest_list(dt_max)
+        return list(docs)
 
 
-api.add_resource(SurfCheck, '/surfchecks/<string:dt_value>')
-api.add_resource(SurfCheckList, '/surfchecks')
+class WeatherDoc(Resource):
+    @marshal_with(weather_fields)
+    def get(self, dt_value):
+        provider = WeatherProvider()
+        if dt_value == 'last':
+            doc = provider.latest_one()
+        else:
+            doc = provider.latest_one(dt_value)
+        if not doc:
+            print("wave doc ko")
+            return "error", 404
+        print("wave doc dt :" + str(doc.get("datetime")))
+        return doc
+
+
+class WeatherList(Resource):
+    @marshal_with(weather_fields)
+    def get(self):
+        dt_max = datetime.datetime.utcnow()
+        docs = WeatherProvider().latest_list(dt_max)
+        return list(docs)
+
+
+api.add_resource(WaveDoc, '/surfchecks/wavereports/<string:dt_value>')
+api.add_resource(WaveList, '/surfchecks/wavereports')
+api.add_resource(WeatherDoc, '/surfchecks/weatherreports/<string:dt_value>')
+api.add_resource(WeatherList, '/surfchecks/weatherreports')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5001)

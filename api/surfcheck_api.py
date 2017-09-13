@@ -21,8 +21,9 @@ wave_fields = {"datetime": custom_fields.DateTimeIsoZ,
                }
 
 weather_fields = {"datetime": custom_fields.DateTimeIsoZ,
-                  "name": fields.String,
-                  "wind": fields.String,
+                  "location": fields.String,
+                  "wind_speed": fields.String,
+                  "wind_deg": fields.String
                   }
 
 

@@ -56,5 +56,5 @@ class WeatherProvider(AbstractMongoProvider):
                         "datetime": doc["datetime"]
                   })
             except KeyError:
-                print "err on doc : " + str(doc)
+                pass
         return mapped_docs

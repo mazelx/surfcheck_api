@@ -1,8 +1,8 @@
-BeautifulSoup==3.2.1
-pymongo==3.4.0
-requests==2.17.3
-urllib3==1.21.1
+beautifulsoup4==4.11.1
+boto3==1.26.59
+bs4==0.0.1
+requests==2.28.2
+# rest api
 Flask==0.12.2
 Flask-RESTful==0.3.6
 Flask-Cors==3.0.3
-gunicorn==19.7.1
